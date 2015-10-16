@@ -94,11 +94,9 @@ int main(int argc, char* argv[])
 		default:
 			if (input >= '0' && input <= '9')
 			{
-				int temp = grid.get(grid.position(cursor_x, cursor_y));
-				grid.set(grid.position(cursor_x, cursor_y), input - '0');
-				if (grid.isValid(grid.position(cursor_x, cursor_y)) == false)
+				if (grid.isValid(grid.position(cursor_x, cursor_y), input - '0'))
 				{
-					grid.set(grid.position(cursor_x, cursor_y), temp);
+					grid.set(grid.position(cursor_x, cursor_y), input - '0');
 				}
 			}
 		}

@@ -30,8 +30,8 @@ void setCursor(const int x, const int y)
 int main(int argc, char* argv[])
 {
 	Sudoker::SudokuGrid solution;
-	int cursor_x = solution.width/2;
-	int cursor_y = solution.height/2;
+	unsigned int cursor_x = solution.width/2;
+	unsigned int cursor_y = solution.height/2;
 	bool victory = false;
 
 	system("CLS");
@@ -40,9 +40,9 @@ int main(int argc, char* argv[])
 	{
 		// Render
 		setCursor(0, 0);
-		for (int y = 0; y < solution.height; ++y)
+		for (unsigned int y = 0; y < solution.height; ++y)
 		{
-			for (int x = 0; x < solution.width; ++x)
+			for (unsigned int x = 0; x < solution.width; ++x)
 			{
 				int value = solution.get(solution.position(x, y));
 				if (value == 0)
@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
 		{
 		case('w') :
 		case('W') :
-			if (cursor_y - 1 >= 0)
+			if (cursor_y > 0)
 				--cursor_y;
 			break;
 		case('s') :
@@ -79,7 +79,7 @@ int main(int argc, char* argv[])
 			break;
 		case('a') :
 		case('A') :
-			if (cursor_x - 1 >= 0)
+			if (cursor_x > 0)
 				--cursor_x;
 			break;
 		case('d') :

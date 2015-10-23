@@ -60,6 +60,7 @@ int main(int argc, char* argv[])
 		std::cout << "INSTRUCTIONS:" << std::endl;
 		std::cout << "Use WASD to move the cursor." << std::endl;
 		std::cout << "Press a number to write it in." << std::endl;
+		std::cout << "Press 'V' to solve." << std::endl;
 		std::cout << "Press 'Q' to quit." << std::endl;
 
 		// Process input
@@ -87,6 +88,10 @@ int main(int argc, char* argv[])
 		case('D') :
 			if (cursor_x + 1 < solution.width)
 				++cursor_x;
+			break;
+		case('v') :
+		case('V') :
+			solution = Sudoker::solve(problem);
 			break;
 		case('q') :
 		case('Q') :

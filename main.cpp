@@ -29,9 +29,9 @@ void setCursor(const int x, const int y)
 
 int main(int argc, char* argv[])
 {
-	Sudoker::SudokuGrid grid;
-	int cursor_x = grid.width/2;
-	int cursor_y = grid.height/2;
+	Sudoker::SudokuGrid solution;
+	int cursor_x = solution.width/2;
+	int cursor_y = solution.height/2;
 	bool victory = false;
 
 	system("CLS");
@@ -40,11 +40,11 @@ int main(int argc, char* argv[])
 	{
 		// Render
 		setCursor(0, 0);
-		for (int y = 0; y < grid.height; ++y)
+		for (int y = 0; y < solution.height; ++y)
 		{
-			for (int x = 0; x < grid.width; ++x)
+			for (int x = 0; x < solution.width; ++x)
 			{
-				int value = grid.get(grid.position(x, y));
+				int value = solution.get(solution.position(x, y));
 				if (value == 0)
 				{
 					std::cout << "  ";
@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 			break;
 		case('s') :
 		case('S') :
-			if (cursor_y + 1 < grid.height)
+			if (cursor_y + 1 < solution.height)
 				++cursor_y;
 			break;
 		case('a') :
@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
 			break;
 		case('d') :
 		case('D') :
-			if (cursor_x + 1 < grid.width)
+			if (cursor_x + 1 < solution.width)
 				++cursor_x;
 			break;
 		case('q') :
@@ -94,15 +94,15 @@ int main(int argc, char* argv[])
 		default:
 			if (input >= '0' && input <= '9')
 			{
-				if (grid.isValid(grid.position(cursor_x, cursor_y), input - '0'))
+				if (solution.isValid(solution.position(cursor_x, cursor_y), input - '0'))
 				{
-					grid.set(grid.position(cursor_x, cursor_y), input - '0');
+					solution.set(solution.position(cursor_x, cursor_y), input - '0');
 				}
 			}
 		}
 
 		// Check for victory
-		if (grid.isFull())
+		if (solution.isFull())
 		{
 			victory = true;
 			running = false;

@@ -29,7 +29,8 @@ void setCursor(const int x, const int y)
 
 int main(int argc, char* argv[])
 {
-	Sudoker::SudokuGrid solution;
+	Sudoker::SudokuGrid problem;
+	Sudoker::SudokuGrid solution = problem;
 	unsigned int cursor_x = solution.width/2;
 	unsigned int cursor_y = solution.height/2;
 	bool victory = false;
@@ -94,7 +95,7 @@ int main(int argc, char* argv[])
 		default:
 			if (input >= '0' && input <= '9')
 			{
-				if (solution.isValid(solution.position(cursor_x, cursor_y), input - '0'))
+				if (problem.get(problem.position(cursor_x, cursor_y)) == 0 && solution.isValid(solution.position(cursor_x, cursor_y), input - '0'))
 				{
 					solution.set(solution.position(cursor_x, cursor_y), input - '0');
 				}

@@ -45,6 +45,31 @@ int main(int argc, char* argv[])
 		{
 			for (unsigned int x = 0; x < solution.width; ++x)
 			{
+				const unsigned int square_x = x / 3;
+				const unsigned int square_y = y / 3;
+				if (square_x == square_y || (square_x == 0 && square_y == 2) || (square_x == 2 && square_y == 0))
+				{
+					if (problem.get(problem.position(x, y)) != 0)
+					{
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+					}
+					else
+					{
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+					}
+				}
+				else
+				{
+					if (problem.get(problem.position(x, y)) != 0)
+					{
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
+					}
+					else
+					{
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | FOREGROUND_INTENSITY);
+					}
+				}
+
 				int value = solution.get(solution.position(x, y));
 				if (value == 0)
 				{
@@ -57,6 +82,7 @@ int main(int argc, char* argv[])
 			}
 			std::cout << std::endl;
 		}
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		std::cout << "INSTRUCTIONS:" << std::endl;
 		std::cout << "Use WASD to move the cursor." << std::endl;
 		std::cout << "Press a number to write it in." << std::endl;

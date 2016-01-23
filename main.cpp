@@ -29,7 +29,7 @@ void setCursor(const int x, const int y)
 
 int main(int argc, char* argv[])
 {
-	Sudoker::UniquelySolvableSudokuGrid problem = Sudoker::generateUnique();
+	Sudoker::UniquelySolvableSudokuGrid problem = Sudoker::generateUnique(Sudoker::DIFFICULTY_HARD);
 	Sudoker::SudokuGrid solution = problem;
 	unsigned int cursor_x = solution.width/2;
 	unsigned int cursor_y = solution.height/2;

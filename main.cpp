@@ -150,11 +150,14 @@ int main(int argc, char* argv[])
 			running = false;
 		}
 	}
-	system("CLS");
+	
 	if (victory)
 	{
+		render(problem, solution);
+		setCursor(0, 14);
 		std::cout << "You have won!" << std::endl;
 	}
+	
 	std::cout << "Press any key to continue . . ." << std::endl;
 	_getch();
 	return 0;

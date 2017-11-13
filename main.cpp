@@ -29,6 +29,53 @@ void setCursor(const int x, const int y)
 	SetConsoleCursorPosition(output, pos);
 }
 
+
+void render(Sudoker::UniquelySolvableSudokuGrid problem, Sudoker::SudokuGrid solution)
+{
+	setCursor(0, 0);
+	for (unsigned int y = 0; y < solution.height; ++y)
+	{
+		for (unsigned int x = 0; x < solution.width; ++x)
+		{
+			const unsigned int square_x = x / 3;
+			const unsigned int square_y = y / 3;
+			if (square_x == square_y || (square_x == 0 && square_y == 2) || (square_x == 2 && square_y == 0))
+			{
+				if (problem.get(problem.position(x, y)) != 0)
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+				}
+				else
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+				}
+			}
+			else
+			{
+				if (problem.get(problem.position(x, y)) != 0)
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
+				}
+				else
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | FOREGROUND_INTENSITY);
+				}
+			}
+
+			int value = solution.get(solution.position(x, y));
+			if (value == 0)
+			{
+				std::cout << "  ";
+			}
+			else
+			{
+				std::cout << value << " ";
+			}
+		}
+		std::cout << std::endl;
+	}
+}
+
 int main(int argc, char* argv[])
 {
 	std::cout << "Generating puzzle...";
@@ -44,48 +91,7 @@ int main(int argc, char* argv[])
 	while (running)
 	{
 		// Render
-		setCursor(0, 0);
-		for (unsigned int y = 0; y < solution.height; ++y)
-		{
-			for (unsigned int x = 0; x < solution.width; ++x)
-			{
-				const unsigned int square_x = x / 3;
-				const unsigned int square_y = y / 3;
-				if (square_x == square_y || (square_x == 0 && square_y == 2) || (square_x == 2 && square_y == 0))
-				{
-					if (problem.get(problem.position(x, y)) != 0)
-					{
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-					}
-					else
-					{
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-					}
-				}
-				else
-				{
-					if (problem.get(problem.position(x, y)) != 0)
-					{
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
-					}
-					else
-					{
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | FOREGROUND_INTENSITY);
-					}
-				}
-
-				int value = solution.get(solution.position(x, y));
-				if (value == 0)
-				{
-					std::cout << "  ";
-				}
-				else
-				{
-					std::cout << value << " ";
-				}
-			}
-			std::cout << std::endl;
-		}
+		render(problem, solution);
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		std::cout << "INSTRUCTIONS:" << std::endl;
 		std::cout << "Use WASD to move the cursor." << std::endl;

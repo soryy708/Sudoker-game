@@ -19,6 +19,8 @@
 #include <Sudoker/sudoker.h>
 #include <Windows.h>
 #include <conio.h>
+#include <conio.h>
+#include <ctime>
 
 void setCursor(const int x, const int y)
 {
@@ -29,6 +31,8 @@ void setCursor(const int x, const int y)
 
 int main(int argc, char* argv[])
 {
+	std::cout << "Generating puzzle...";
+	srand(time(NULL));
 	Sudoker::UniquelySolvableSudokuGrid problem = Sudoker::generateUnique(Sudoker::DIFFICULTY_HARD);
 	Sudoker::SudokuGrid solution = problem;
 	unsigned int cursor_x = solution.width/2;
